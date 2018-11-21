@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="1.50.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HouseholdExpensesTrackerServer21.Common\HouseholdExpensesTrackerServer21.Common.csproj" />
+    <ProjectReference Include="..\HouseholdExpensesTrackerServer21.DataTransferObject\HouseholdExpensesTrackerServer21.DataTransferObject.csproj" />
+    <ProjectReference Include="..\HouseholdExpensesTrackerServer21.Infrastructure\HouseholdExpensesTrackerServer21.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

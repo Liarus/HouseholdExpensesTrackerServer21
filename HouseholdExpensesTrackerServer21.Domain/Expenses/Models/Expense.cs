@@ -41,10 +41,16 @@ namespace HouseholdExpensesTrackerServer21.Domain.Expenses.Models
             return this;
         }
 
+        public void Delete()
+        {
+            this.ApplyEvent(new ExpenseDeletedEvent(this.Id));
+        }
+
         protected Expense(Guid id, Guid householdId, Guid expenseTypeId, string name, string description, decimal amount,
             DateTime date, Period period)
         {
             this.Id = id;
+            this.HouseholdId = householdId;
             this.ExpenseTypeId = expenseTypeId;
             this.Name = name;
             this.Description = description;

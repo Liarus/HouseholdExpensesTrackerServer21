@@ -59,9 +59,10 @@ namespace HouseholdExpensesTrackerServer21.Domain.Identities.Models
 
         public void UnassignAllPermissions()
         {
-            foreach(var permission in _rolePermissions)
+            var permissionIds = _rolePermissions.Select(e =>  e.PermissionId ).ToList();
+            foreach(var permissionId in permissionIds)
             {
-                this.UnassignPermission(permission.PermissionId);
+                this.UnassignPermission(permissionId);
             }
         }
 

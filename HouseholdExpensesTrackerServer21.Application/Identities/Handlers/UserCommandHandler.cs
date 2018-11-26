@@ -44,8 +44,7 @@ namespace HouseholdExpensesTrackerServer21.Application.Identities.Handlers
             CancellationToken token = default(CancellationToken))
         {
             var user = await this.GetUserAsync(message.UserId, token);
-            user.AddCredential(Credential.Create(message.CredentialId, message.UserId, message.CredentialTypeId,
-                message.Identifier, message.Secret));
+            user.AddCredential(message.CredentialTypeId, message.Identifier, message.Secret);
             await _users.SaveChangesAsync(token);
         }
 

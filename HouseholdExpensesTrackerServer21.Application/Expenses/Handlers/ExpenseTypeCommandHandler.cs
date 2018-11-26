@@ -39,6 +39,7 @@ namespace HouseholdExpensesTrackerServer21.Application.Expenses.Handlers
         public async Task HandleAsync(DeleteExpenseTypeCommand message, CancellationToken token = default(CancellationToken))
         {
             var type = await this.GetSavingTypeAsync(message.ExpenseTypeId);
+            type.Delete();
             _types.Delete(type);
             await _types.SaveChangesAsync();
         }

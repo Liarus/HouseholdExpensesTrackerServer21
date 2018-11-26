@@ -31,11 +31,12 @@ namespace HouseholdExpensesTrackerServer21.Domain.Identities.Models
             return this;
         }
 
-        public void AddCredential(Credential credential)
+        public void AddCredential(Guid credentialTypeId, string identifier, string secret)
         {
-            _credentials.Add(credential);
-            this.ApplyEvent(new CredentialAddedEvent(credential.Id,
-                this.Id, credential.CredentialTypeId, credential.Identifier));
+            Guid credentialId = Guid.NewGuid();
+            _credentials.Add(Credential.Create(credentialId, this.Id, credentialTypeId, identifier, secret));
+            this.ApplyEvent(new CredentialAddedEvent(credentialId,
+                this.Id, credentialTypeId, identifier));
         }
 
         public void AssignRole(Guid roleId)
@@ -52,7 +53,7 @@ namespace HouseholdExpensesTrackerServer21.Domain.Identities.Models
 
         public void UnassignRole(Guid roleId)
         {
-            var role = _userRoles.SingleOrDefault(e => e.RoleId == roleId && e.UserId == this.Id);
+            var role = _userRoles.SingleOrDefault(e => e.RoleId == roleId);
             if (role == null)
             {
                 throw new HouseholdException($"Role {roleId} is not assigned to user {this.Id}");

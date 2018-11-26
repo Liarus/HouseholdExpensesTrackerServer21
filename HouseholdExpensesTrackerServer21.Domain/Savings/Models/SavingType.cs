@@ -26,6 +26,11 @@ namespace HouseholdExpensesTrackerServer21.Domain.Savings.Models
             return this;
         }
 
+        public void Delete()
+        {
+            this.ApplyEvent(new SavingTypeDeletedEvent(this.Id));
+        }
+
         protected SavingType(Guid id, Guid userId, string name, string symbol)
         {
             this.Id = id;

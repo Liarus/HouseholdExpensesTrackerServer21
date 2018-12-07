@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace HouseholdExpensesTrackerServer21.Application.Identities.Handlers
 {
-    public class HouseholdCommandHandler : ICommandHandlerAsync<CreatePermissionCommand>,
+    public class PermissionCommandHandler : ICommandHandlerAsync<CreatePermissionCommand>,
                                            ICommandHandlerAsync<ModifyPermissionCommand>,
                                            ICommandHandlerAsync<DeletePermissionCommand>
     {
         private readonly IPermissionRepository _permissions;
-        public HouseholdCommandHandler(IPermissionRepository permissions)
+        public PermissionCommandHandler(IPermissionRepository permissions)
         {
             _permissions = permissions;
         }

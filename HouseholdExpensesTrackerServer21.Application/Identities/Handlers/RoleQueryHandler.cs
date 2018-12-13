@@ -49,16 +49,6 @@ namespace HouseholdExpensesTrackerServer21.Application.Identities.Handlers
                 splitOn: "PermissionId");
                 return permissions;
             }
-            //var roles = await
-            //    _db.Roles.Select(e => new RoleDto
-            //    {
-            //        Id = e.Id,
-            //        Code = e.Code,
-            //        Name = e.Name,
-            //        PermissionIds = e.RolePermissions.Select(o => o.PermissionId).ToList(),
-            //        Version = e.Version
-            //    }).AsNoTracking().ToListAsync();
-            //return roles;
         }
     }
 }

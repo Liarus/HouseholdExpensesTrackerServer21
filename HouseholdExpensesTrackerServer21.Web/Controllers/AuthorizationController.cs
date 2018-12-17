@@ -63,6 +63,7 @@ namespace HouseholdExpensesTrackerServer21.Web.Controllers
             var tokenString = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
             return Ok(new SignInDto
             {
+                UserId = user.Id,
                 UserName = user.Name,
                 AccessToken = tokenString
             });

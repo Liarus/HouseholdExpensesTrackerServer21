@@ -53,8 +53,8 @@ namespace HouseholdExpensesTrackerServer21.Web.Controllers
             var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 
             var tokeOptions = new JwtSecurityToken(
-                issuer: "http://localhost:54707",
-                audience: "http://localhost:4000",
+                issuer: "https://localhost:44336",
+                audience: "http://localhost:4200",
                 claims: claims,
                 expires: DateTime.Now.AddMinutes(5),
                 signingCredentials: signinCredentials

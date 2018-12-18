@@ -38,9 +38,14 @@ namespace HouseholdExpensesTrackerServer21.Web
         {
             services.AddCors();
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            services.AddAuthentication(options =>
+                {
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
                 .AddJwtBearer(options =>
                 {
+                    options.IncludeErrorDetails = true;
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuer = true,
@@ -48,8 +53,8 @@ namespace HouseholdExpensesTrackerServer21.Web
                         ValidateLifetime = true,
                         ValidateIssuerSigningKey = true,
 
-                        ValidIssuer = "http://localhost:54707",
-                        ValidAudience = "http://localhost:4000",
+                        ValidIssuer = "https://localhost:44336",
+                        ValidAudience = "http://localhost:4200",
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"))
                     };
                 });
@@ -91,6 +96,7 @@ namespace HouseholdExpensesTrackerServer21.Web
                 app.UseHsts();
             }
 
+            app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseErrorHandler();
             app.UseMvc();

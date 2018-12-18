@@ -8,11 +8,13 @@ using HouseholdExpensesTrackerServer21.Common.Query;
 using HouseholdExpensesTrackerServer21.DataTransferObject.Requests;
 using HouseholdExpensesTrackerServer21.DataTransferObject.Responses;
 using HouseholdExpensesTrackerServer21.DataTransferObject21.Application.Households.Queries;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HouseholdExpensesTrackerServer21.Web.Controllers
 {
+    [Authorize]
     public class HouseholdController : BaseController
     {
         public HouseholdController(ICommandDispatcherAsync commandDispatcher,

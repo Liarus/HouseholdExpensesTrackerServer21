@@ -33,6 +33,7 @@ namespace HouseholdExpensesTrackerServer21.Domain.Savings.Models
             this.Amount = amount;
             this.Date = date;
             this.Version = version;
+            SetSearchValue();
             this.ApplyEvent(new SavingModifiedEvent(this.Id, savingTypeId, name, description,
                 amount, date));
             return this;
@@ -41,6 +42,14 @@ namespace HouseholdExpensesTrackerServer21.Domain.Savings.Models
         public void Delete()
         {
             this.ApplyEvent(new SavingDeletedEvent(this.Id));
+        }
+
+        protected override IEnumerable<object> GetSearchValues()
+        {
+            yield return this.Amount;
+            yield return this.Date;
+            yield return this.Description;
+            yield return this.Name;
         }
 
         protected Saving(Guid id, Guid householdId, Guid savingTypeId, string name, string description,
@@ -53,6 +62,7 @@ namespace HouseholdExpensesTrackerServer21.Domain.Savings.Models
             this.Description = description;
             this.Amount = amount;
             this.Date = date;
+            SetSearchValue();
             this.ApplyEvent(new SavingCreatedEvent(id, householdId, savingTypeId, name, description,
                 amount, date));
         }

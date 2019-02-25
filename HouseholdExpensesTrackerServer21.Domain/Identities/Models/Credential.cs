@@ -18,6 +18,11 @@ namespace HouseholdExpensesTrackerServer21.Domain.Identities.Models
         public static Credential Create(Guid id, Guid userId, Guid credentialTypeId, string identifier, string secret)
             => new Credential(id, userId, credentialTypeId, identifier, secret);
 
+        protected override IEnumerable<object> GetSearchValues()
+        {
+            yield return this.Identifier;
+        }
+
         protected Credential(Guid id,  Guid userId, Guid credentialTypeId, string identifier, string secret)
         {
             this.Id = id;
@@ -25,6 +30,7 @@ namespace HouseholdExpensesTrackerServer21.Domain.Identities.Models
             this.CredentialTypeId = credentialTypeId;
             this.Identifier = identifier;
             this.Secret = secret;
+            SetSearchValue();
         }
 
         protected Credential()

@@ -36,6 +36,7 @@ namespace HouseholdExpensesTrackerServer21.Domain.Expenses.Models
             this.Date = date;
             this.Period = period;
             this.Version = version;
+            SetSearchValue();
             this.ApplyEvent(new ExpenseModifiedEvent(this.Id, expenseTypeId, name, description, amount, date,
                 period.PeriodStart, period.PeriodEnd));
             return this;
@@ -44,6 +45,16 @@ namespace HouseholdExpensesTrackerServer21.Domain.Expenses.Models
         public void Delete()
         {
             this.ApplyEvent(new ExpenseDeletedEvent(this.Id));
+        }
+
+        protected override IEnumerable<object> GetSearchValues()
+        {
+            yield return this.Amount;
+            yield return this.Date;
+            yield return this.Description;
+            yield return this.Name;
+            yield return this.Period.PeriodEnd;
+            yield return this.Period.PeriodStart;
         }
 
         protected Expense(Guid id, Guid householdId, Guid expenseTypeId, string name, string description, decimal amount,
@@ -57,6 +68,7 @@ namespace HouseholdExpensesTrackerServer21.Domain.Expenses.Models
             this.Amount = amount;
             this.Date = date;
             this.Period = period;
+            SetSearchValue();
             this.ApplyEvent(new ExpenseCreatedEvent(id, householdId, expenseTypeId, name, description,
                 amount, date, period.PeriodStart, period.PeriodEnd));
         }

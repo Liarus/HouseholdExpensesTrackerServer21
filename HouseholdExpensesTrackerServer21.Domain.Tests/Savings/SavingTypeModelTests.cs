@@ -26,6 +26,7 @@ namespace HouseholdExpensesTrackerServer21.Domain.Tests.Savings
             Assert.IsTrue(actual.Id == expectedId);
             Assert.IsTrue(actual.Name == expectedName);
             Assert.IsTrue(actual.Symbol == expectedSymbol);
+            Assert.IsTrue(!string.IsNullOrEmpty(actual.SearchValue));
         }
 
         [TestMethod]
@@ -74,6 +75,7 @@ namespace HouseholdExpensesTrackerServer21.Domain.Tests.Savings
             Assert.IsTrue(actual.Id == expectedId);
             Assert.IsTrue(actual.Name == expectedName);
             Assert.IsTrue(actual.Symbol == expectedSymbol);
+            Assert.IsTrue(!string.IsNullOrEmpty(actual.SearchValue));
         }
 
         [TestMethod]

@@ -3,7 +3,6 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 using HouseholdExpensesTrackerServer21.Domain.Core;
-using HouseholdExpensesTrackerServer21.Domain.Identities.Models;
 using HouseholdExpensesTrackerServer21.Domain.Identities.Events;
 using HouseholdExpensesTrackerServer21.Common.Type;
 
@@ -27,6 +26,7 @@ namespace HouseholdExpensesTrackerServer21.Domain.Identities.Models
         {
             this.Name = name;
             this.Version = version;
+            SetSearchValue();
             this.ApplyEvent(new UserModifiedEvent(this.Id, name));
             return this;
         }
@@ -62,12 +62,18 @@ namespace HouseholdExpensesTrackerServer21.Domain.Identities.Models
             this.ApplyEvent(new RoleUnassignedEvent(roleId, this.Id));
         }
 
+        protected override IEnumerable<object> GetSearchValues()
+        {
+            yield return this.Name;
+        }
+
         protected User(Guid id, string name)
         {
             this.Id = id;
             this.Name = name;
             _credentials = new List<Credential>();
             _userRoles = new List<UserRole>();
+            SetSearchValue();
             this.ApplyEvent(new UserCreatedEvent(this.Id, name));
         }
 

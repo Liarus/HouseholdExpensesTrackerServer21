@@ -26,6 +26,7 @@ namespace HouseholdExpensesTrackerServer21.Domain.Identities.Models
             this.Name = name;
             this.Code = code;
             this.Version = version;
+            SetSearchValue();
             this.ApplyEvent(new RoleModifiedEvent(this.Id, code, name));
             return this;
         }
@@ -66,11 +67,18 @@ namespace HouseholdExpensesTrackerServer21.Domain.Identities.Models
             }
         }
 
+        protected override IEnumerable<object> GetSearchValues()
+        {
+            yield return this.Code;
+            yield return this.Name;
+        }
+
         protected Role(Guid id, string name, string code)
         {
             this.Id = id;
             this.Name = name;
             this.Code = code;
+            SetSearchValue();
             this.ApplyEvent(new RoleCreatedEvent(id, code, name));
         }
 

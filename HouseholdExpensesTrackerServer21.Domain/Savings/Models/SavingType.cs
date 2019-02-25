@@ -22,6 +22,7 @@ namespace HouseholdExpensesTrackerServer21.Domain.Savings.Models
             this.Name = name;
             this.Symbol = symbol;
             this.Version = version;
+            SetSearchValue();
             this.ApplyEvent(new SavingTypeModifiedEvent(this.Id, name, symbol));
             return this;
         }
@@ -31,12 +32,19 @@ namespace HouseholdExpensesTrackerServer21.Domain.Savings.Models
             this.ApplyEvent(new SavingTypeDeletedEvent(this.Id));
         }
 
+        protected override IEnumerable<object> GetSearchValues()
+        {
+            yield return this.Name;
+            yield return this.Symbol;
+        }
+
         protected SavingType(Guid id, Guid userId, string name, string symbol)
         {
             this.Id = id;
             this.UserId = userId;
             this.Name = name;
             this.Symbol = symbol;
+            SetSearchValue();
             this.ApplyEvent(new SavingTypeCreatedEvent(id, userId, name, symbol));
         }
 

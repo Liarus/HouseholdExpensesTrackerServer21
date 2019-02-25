@@ -38,6 +38,7 @@ namespace HouseholdExpensesTrackerServer21.Domain.Tests.Expenses
             Assert.IsTrue(actual.Date == expectedDate);
             Assert.IsTrue(actual.Period != null);
             Assert.IsTrue(actual.Period.Equals(expectedPeriod));
+            Assert.IsTrue(!string.IsNullOrEmpty(actual.SearchValue));
         }
 
         [TestMethod]
@@ -110,6 +111,7 @@ namespace HouseholdExpensesTrackerServer21.Domain.Tests.Expenses
             Assert.IsTrue(actual.Period != null);
             Assert.IsTrue(actual.Period.PeriodStart == expectedStart);
             Assert.IsTrue(actual.Period.PeriodEnd == expectedEnd);
+            Assert.IsTrue(!string.IsNullOrEmpty(actual.SearchValue));
         }
 
         [TestMethod]

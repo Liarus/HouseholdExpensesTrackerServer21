@@ -81,7 +81,6 @@ namespace HouseholdExpensesTrackerServer21.Infrastructure.Context
             var events = this.GatherAllUncommitedEvents();
             this.ManageEntities();
             var result =  await base.SaveChangesAsync(cancellationToken);
-            this.FillInsertedIds();
             await this.DispatchEventsAsync(events);
             return result;
         }
@@ -123,19 +122,6 @@ namespace HouseholdExpensesTrackerServer21.Infrastructure.Context
             }
         }
 
-        protected virtual void FillInsertedIds()
-        {
-            foreach(var entity in _added)
-            {
-                _insertedIds.AddOrUpdate(entity.GetType().Name, new List<int> { (int)GetPropValue(entity, "Id") }, (key, value) =>
-                {
-                    value.Add((int)GetPropValue(entity, "Id"));
-                    return value;
-                });
-            }
-            _added.Clear();
-        }
-
         protected virtual IReadOnlyCollection<IEvent[]> GatherAllUncommitedEvents()
         {
             var domainEventAggregates = ChangeTracker.Entries<IAggregateRoot>()
@@ -173,22 +159,23 @@ namespace HouseholdExpensesTrackerServer21.Infrastructure.Context
 
         protected virtual void Seed(ModelBuilder modelBuilder)
         {
-            var currentUserName = "Initial";
+            string currentUserName = "Initial";
+            DateTime date = new DateTime(2018, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
             Guid userId = new Guid("fa64114f-9aaf-492a-a9aa-43022bfac171");
             var user = User.Create(userId, "Administrator");
-            ((IAuditableEntity)user).CreateAuditable(DateTime.UtcNow, currentUserName);
+            ((IAuditableEntity)user).CreateAuditable(date, currentUserName);
 
             modelBuilder.Entity<User>().HasData(user);
 
             Guid credentialTypeId = new Guid("105ef49d-42b6-4fb8-8d9e-52aaa16f42a9");
             var credentialType = CredentialType.Create(credentialTypeId, "Email address", "email");
-            ((IAuditableEntity)credentialType).CreateAuditable(DateTime.UtcNow, currentUserName);
+            ((IAuditableEntity)credentialType).CreateAuditable(date, currentUserName);
             modelBuilder.Entity<CredentialType>().HasData(credentialType);
 
             Guid credentialId = new Guid("132a06e7-4c9e-49f9-8f94-0604f01a5c16");
             var credential = Credential.Create(credentialId, userId, credentialTypeId, "admin@example.com", Md5HashHelper.ComputeHash("admin"));
-            ((IAuditableEntity)credential).CreateAuditable(DateTime.UtcNow, currentUserName);
+            ((IAuditableEntity)credential).CreateAuditable(date, currentUserName);
             modelBuilder.Entity<Credential>().HasData(credential);
         }
 

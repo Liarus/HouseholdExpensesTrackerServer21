@@ -33,6 +33,7 @@ namespace HouseholdExpensesTrackerServer21.Domain.Tests.Savings
             Assert.IsTrue(actual.Description == expectedDescription);
             Assert.IsTrue(actual.Amount == expectedAmount);
             Assert.IsTrue(actual.Date == expectedDate);
+            Assert.IsTrue(!string.IsNullOrEmpty(actual.SearchValue));
         }
 
         [TestMethod]
@@ -93,6 +94,7 @@ namespace HouseholdExpensesTrackerServer21.Domain.Tests.Savings
             Assert.IsTrue(actual.Date == expectedDate);
             Assert.IsTrue(actual.Amount == expectedAmount);
             Assert.IsTrue(actual.SavingTypeId == expectedSavingTypeId);
+            Assert.IsTrue(!string.IsNullOrEmpty(actual.SearchValue));
         }
 
         [TestMethod]

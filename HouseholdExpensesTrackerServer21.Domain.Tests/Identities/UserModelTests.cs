@@ -23,6 +23,7 @@ namespace HouseholdExpensesTrackerServer21.Domain.Tests.Identities
             Assert.IsTrue(actual != null);
             Assert.IsTrue(actual.Id == expectedId);
             Assert.IsTrue(actual.Name == expectedName);
+            Assert.IsTrue(!string.IsNullOrEmpty(actual.SearchValue));
         }
 
         [TestMethod]
@@ -63,6 +64,7 @@ namespace HouseholdExpensesTrackerServer21.Domain.Tests.Identities
             // Assert
             Assert.IsTrue(actual.Id == expectedId);
             Assert.IsTrue(actual.Name == expectedName);
+            Assert.IsTrue(!string.IsNullOrEmpty(actual.SearchValue));
         }
 
         [TestMethod]

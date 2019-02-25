@@ -28,6 +28,8 @@ namespace HouseholdExpensesTrackerServer21.Infrastructure.Context.Configurations
                 .HasColumnName("UpdatedBy");
             builder.Property("_updatedDate")
                 .HasColumnName("UpdatedDate");
+            builder.Property(e => e.SearchValue)
+                .HasColumnName("SearchValue");
             builder.Property(e => e.Version)
                 .IsRowVersion()
                 .HasColumnName("Version");

@@ -31,6 +31,7 @@ namespace HouseholdExpensesTrackerServer21.Domain.Households.Models
             //EF core bug
             this.Address.UpdateFrom(address);
             this.Version = version;
+            SetSearchValue();
             this.ApplyEvent(new HouseholdModifiedEvent(this.Id, name, symbol, description,  
                 address.Street, address.City, address.Country, address.ZipCode));
             return this;
@@ -39,6 +40,20 @@ namespace HouseholdExpensesTrackerServer21.Domain.Households.Models
         public void Delete()
         {
             this.ApplyEvent(new HouseholdDeletedEvent(this.Id));
+        }
+
+        protected override IEnumerable<object> GetSearchValues()
+        {
+            yield return this.Name;
+            yield return this.Symbol;
+            yield return this.Description;
+            if (this.Address != null)
+            {
+                yield return this.Address.City;
+                yield return this.Address.Country;
+                yield return this.Address.Street;
+                yield return this.Address.ZipCode;
+            }
         }
 
         protected Household(Guid id, Guid userId, string name, string symbol, string description,
@@ -50,6 +65,7 @@ namespace HouseholdExpensesTrackerServer21.Domain.Households.Models
             this.Symbol = symbol;
             this.Description = description;
             this.Address = address;
+            SetSearchValue();
             this.ApplyEvent(new HouseholdCreatedEvent(id, userId, name, symbol, description,
                 address.Street, address.City, address.Country, address.ZipCode));
         }

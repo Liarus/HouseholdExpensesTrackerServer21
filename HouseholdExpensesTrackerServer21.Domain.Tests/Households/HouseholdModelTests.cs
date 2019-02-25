@@ -36,6 +36,7 @@ namespace HouseholdExpensesTrackerServer21.Domain.Tests.Households
             Assert.IsTrue(actual.Address.Equals(expectedAddress));
             Assert.IsTrue(actual.Description == expectedDescription);
             Assert.IsTrue(actual.Symbol == expectedSymbol);
+            Assert.IsTrue(!string.IsNullOrEmpty(actual.SearchValue));
         }
 
         [TestMethod]
@@ -110,6 +111,7 @@ namespace HouseholdExpensesTrackerServer21.Domain.Tests.Households
             Assert.IsTrue(actual.Address.Country == expectedCountry);
             Assert.IsTrue(actual.Address.Street == expectedStreet);
             Assert.IsTrue(actual.Address.ZipCode == expectedZipCode);
+            Assert.IsTrue(!string.IsNullOrEmpty(actual.SearchValue));
         }
 
         [TestMethod]

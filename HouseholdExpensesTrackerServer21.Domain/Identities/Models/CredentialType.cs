@@ -20,6 +20,7 @@ namespace HouseholdExpensesTrackerServer21.Domain.Identities.Models
             this.Name = name;
             this.Code = code;
             this.Version = version;
+            SetSearchValue();
             this.ApplyEvent(new CredentialTypeModifiedEvent(this.Id, code,
                 name));
             return this;
@@ -30,11 +31,18 @@ namespace HouseholdExpensesTrackerServer21.Domain.Identities.Models
             this.ApplyEvent(new CredentialTypeDeletedEvent(this.Id));
         }
 
+        protected override IEnumerable<object> GetSearchValues()
+        {
+            yield return this.Code;
+            yield return this.Name;
+        }
+
         protected CredentialType(Guid id, string name, string code)
         {
             this.Id = id;
             this.Name = name;
             this.Code = code;
+            SetSearchValue();
             this.ApplyEvent(new CredentialTypeCreatedEvent(id, code, name));
         }
 

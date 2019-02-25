@@ -29,6 +29,7 @@ namespace HouseholdExpensesTrackerServer21.Domain.Tests.Identities
             Assert.IsTrue(actual.UserId == expectedUserId);
             Assert.IsTrue(actual.Identifier == expectedIdentifier);
             Assert.IsTrue(actual.Secret == expectedSecret);
+            Assert.IsTrue(!string.IsNullOrEmpty(actual.SearchValue));
         }
     }
 }

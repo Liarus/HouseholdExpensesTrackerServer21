@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace HouseholdExpensesTrackerServer21.DataTransferObject21.Application.Households.Queries
+namespace HouseholdExpensesTrackerServer21.Application.Households.Queries
 {
     public class HouseholdListQuery : BaseQuery
     {

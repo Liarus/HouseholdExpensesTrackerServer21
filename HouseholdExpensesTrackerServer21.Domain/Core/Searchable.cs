@@ -37,7 +37,7 @@ namespace HouseholdExpensesTrackerServer21.Domain.Core
             }
             if (!string.IsNullOrEmpty(searchValue))
             {
-                this.SearchValue = searchValue;
+                this.SearchValue = searchValue.ToLower();
             }
         }
     }

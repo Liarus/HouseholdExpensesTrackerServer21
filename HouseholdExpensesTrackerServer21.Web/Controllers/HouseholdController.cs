@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HouseholdExpensesTrackerServer21.Application.Households.Commands;
+using HouseholdExpensesTrackerServer21.Application.Households.Queries;
 using HouseholdExpensesTrackerServer21.Common.Command;
 using HouseholdExpensesTrackerServer21.Common.Query;
 using HouseholdExpensesTrackerServer21.DataTransferObject.Requests;
 using HouseholdExpensesTrackerServer21.DataTransferObject.Responses;
-using HouseholdExpensesTrackerServer21.DataTransferObject21.Application.Households.Queries;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using static HouseholdExpensesTrackerServer21.Application.Core.Enums;
 
 namespace HouseholdExpensesTrackerServer21.Web.Controllers
 {
@@ -24,9 +25,10 @@ namespace HouseholdExpensesTrackerServer21.Web.Controllers
         }
 
         [Route("~/api/user/{userId:guid}/households")]
-        public async Task<IActionResult> GetForUser(Guid userId)
+        public async Task<IActionResult> GetForUser(Guid userId, string search, int pageNumber, int pageSize, HouseholdSorting sort )
         {
-            var result = await this.GetQueryAsync<IEnumerable<HouseholdDto>>(new HouseholdListQuery(userId));
+            var result = await this.GetQueryAsync<HouseholdSearchResultDto>(
+                new HouseholdSearchQuery(userId, pageNumber, pageSize, search, sort));
             return Ok(result);
         }
 
